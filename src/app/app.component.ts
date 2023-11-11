@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { BreakpointService } from './services/breakpoint.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'music-player';
+  public breakpointService = inject(BreakpointService);
 }
