@@ -1,56 +1,22 @@
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
+@for (track of trackService.tracks; track track.name) {
+<a class="track" [routerLink]="'/player'" [queryParams]="{ track: track.name }">
+  <div class="track-cover" [style.background]="track.gradient"></div>
+  <div class="track-info">
+    <span class="track-info-name">{{ track.name }}</span>
+    <span class="track-info-artist">{{ track.artist }}</span>
+  </div>
+  <button
+    class="track-options-button"
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    (click)="$event.preventDefault(); $event.stopPropagation()"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu class="track-options" #menu="matMenu">
+    <button class="track-options-item" mat-menu-item (click)="trackService.tracks.remove(track)">Remove</button>
+  </mat-menu>
+</a>
+} @empty {
+  No tracks
+}

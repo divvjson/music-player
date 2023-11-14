@@ -1,3 +1,7 @@
-<div class="shell" [class.mat-elevation-z6]="(breakpointService.xsmall$ | async) === false" [class.frame]="(breakpointService.xsmall$ | async) === false">
+<div
+  class="shell"
+  [class.mat-elevation-z6]="(breakpointService.xsmall$ | async) === false"
+  [class.frame]="(breakpointService.xsmall$ | async) === false"
+>
   <router-outlet />
 </div>

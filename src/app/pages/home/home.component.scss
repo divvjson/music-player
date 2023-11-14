@@ -2,6 +2,56 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  background-color: red;
   overflow-y: auto;
+  background: linear-gradient(to right,#3C3481, #252547);
+  box-sizing: border-box;
+  padding: 16px;
+  row-gap: 16px;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  border-radius: 12px;
+  background: linear-gradient(to right, #4B3F87, #3E3665);
+  box-sizing: border-box;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.track-cover {
+  height: 48px;
+  width: 48px;
+  border-radius: 8px;
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+}
+
+.track-info-name {
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.track-info-artist {
+  color: rgb(233, 233, 233);
+  font-size: 10px;
+}
+
+.track-options-button {
+  margin-left: auto;
+  color: white;
+}
+
+::ng-deep .track-options {
+  background: linear-gradient(to right, #4B3F87, #3E3665) !important;
+}
+
+.track-options-item {
+  color: white;
 }
