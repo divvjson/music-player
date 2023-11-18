@@ -29,10 +29,11 @@ export class TrackService {
   private http = inject(HttpClient);
 
   private getGradient() {
-    return `linear-gradient(to bottom right, ${this.getRandomColor()}, ${this.getRandomColor()})`;
+    const colors = this.getRandomColors();
+    return `linear-gradient(to bottom right, ${colors[0]}, ${colors[1]})`;
   }
 
-  private getRandomColor(): string {
+  private getRandomColors() {
     let components = [0, 0, 0];
     const highIndex = Math.floor(Math.random() * 3);
     components[highIndex] = Math.floor(Math.random() * 55 + 200);
@@ -43,6 +44,12 @@ export class TrackService {
       }
     }
 
-    return `#${components.map(c => c.toString(16).padStart(2, '0')).join('')}`;
+    const firstColor = `#${components.map(c => c.toString(16).padStart(2, '0')).join('')}`;
+
+    // Make the second color brighter and lighter based on the first color
+    const brighterComponents = components.map(c => Math.min(c + Math.floor(Math.random() * 55), 255));
+    const secondColor = `#${brighterComponents.map(c => c.toString(16).padStart(2, '0')).join('')}`;
+
+    return [firstColor, secondColor];
   }
 }
