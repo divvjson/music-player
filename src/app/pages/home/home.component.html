@@ -1,5 +1,5 @@
 @for (track of trackService.tracks; track track.name) {
-<a class="track" [routerLink]="'/player'" [queryParams]="{ track: track.name }">
+<a class="track" [routerLink]="'/player/' + track.id">
   <div class="track-cover" [style.background]="track.gradient"></div>
   <div class="track-info">
     <span class="track-info-name">{{ track.name }}</span>

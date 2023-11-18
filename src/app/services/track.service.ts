@@ -7,18 +7,21 @@ export class TrackService {
 
   public tracks: Array<Track> = [
     {
+      id: 1,
       artist: 'Kevin MacLeod',
       name: 'Airport Lounge',
       gradient: this.getGradient(),
       url: 'assets/tracks/Airport Lounge.mp3',
     },
     {
+      id: 2,
       artist: 'Kevin MacLeod',
       name: 'Awesome Call',
       gradient: this.getGradient(),
       url: 'assets/tracks/Awesome Call.mp3',
     },
     {
+      id: 3,
       artist: 'Kevin MacLeod',
       name: 'Backed Vibes',
       gradient: this.getGradient(),
@@ -27,6 +30,10 @@ export class TrackService {
   ];
 
   private http = inject(HttpClient);
+
+  public load() {
+    
+  }
 
   private getGradient() {
     const colors = this.getRandomColors();

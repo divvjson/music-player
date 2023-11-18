@@ -6,7 +6,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent),
   },
   {
-    path: 'player',
+    path: 'player/:trackId',
     loadComponent: () => import('./pages/player/player.component').then(c => c.PlayerComponent),
   }
 ];
