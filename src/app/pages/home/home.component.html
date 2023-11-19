@@ -1,3 +1,9 @@
+<div class="bar">
+  <span class="bar-title">Tracks</span>
+  <a class="bar-add" mat-icon-button>
+    <mat-icon>add</mat-icon>
+  </a>
+</div>
 @for (track of trackService.tracks; track track.name) {
 <a class="track" [routerLink]="'/player/' + track.id">
   <div class="track-cover" [style.background]="track.gradient"></div>
@@ -14,9 +20,13 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu class="track-options" #menu="matMenu">
-    <button class="track-options-item" mat-menu-item (click)="trackService.tracks.remove(track)">Remove</button>
+    <button
+      class="track-options-item"
+      mat-menu-item
+      (click)="trackService.tracks.remove(track)"
+    >
+      Remove
+    </button>
   </mat-menu>
 </a>
-} @empty {
-  No tracks
-}
+} @empty { No tracks }
