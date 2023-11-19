@@ -1,5 +1,69 @@
 :host {
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
-  background-color: green;
+  background: linear-gradient(to bottom right, #3C3481, #252547);
+  box-sizing: border-box;
+  padding: 16px;
+  row-gap: 8px;
 }
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.bar-back {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.visual-circle {
+  display: grid;
+  place-items: center;
+  width: 256px;
+  height: 256px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.visual-circle-circle {
+  display: grid;
+  place-items: center;
+  width: 88%;
+  height: 88%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.075);
+}
+
+.visual-circle-circle-gradient {
+  width: 88%;
+  height: 88%;
+  border-radius: 50%;
+}
+
+// XSmall
+@media only screen and (min-width: 0px) {}
+
+// Small
+@media only screen and (min-width: 600px) {}
+
+// Medium
+@media only screen and (min-width: 960px) {}
+
+// Large
+@media only screen and (min-width: 1440px) {}
+
+// XLarge
+@media only screen and (min-width: 1920px) {}
