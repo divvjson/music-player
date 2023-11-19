@@ -10,3 +10,29 @@
     </div>
   </div>
 </div>
+<div class="track">
+  <span class="track-name">{{ track?.name }}</span>
+  <span class="track-artist">{{ track?.artist }}</span>
+</div>
+<div class="seekbar">
+  <mat-slider class="seekbar-slider" #seekbarSlider>
+    <input matSliderThumb>
+  </mat-slider>
+</div>
+<div class="controls">
+  <button class="controls-button" mat-icon-button>
+    <mat-icon class="controls-button-icon">skip_previous</mat-icon>
+  </button>
+  <button class="controls-button" mat-icon-button>
+    <mat-icon class="controls-button-icon">replay_30</mat-icon>
+  </button>
+  <button class="controls-button" mat-icon-button>
+    <mat-icon class="controls-button-icon">pause</mat-icon>
+  </button>
+  <button class="controls-button" mat-icon-button>
+    <mat-icon class="controls-button-icon">forward_30</mat-icon>
+  </button>
+  <button class="controls-button" mat-icon-button>
+    <mat-icon class="controls-button-icon">skip_next</mat-icon>
+  </button>
+</div>

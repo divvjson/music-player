@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TrackService } from '../../services/track.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Track } from '../../interfaces/track.interface';
+import { MatSlider, MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'app-player',
@@ -13,15 +14,19 @@ import { Track } from '../../interfaces/track.interface';
     CommonModule,
     MatButtonModule,
     MatIconModule,
+    MatSliderModule,
     RouterModule,
   ],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss'
 })
-export class PlayerComponent implements OnInit, OnDestroy {
+export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private trackService = inject(TrackService);
+  private renderer2 = inject(Renderer2);
+
+  @ViewChild(MatSlider) seekbarSlider: MatSlider | undefined;
 
   public track: Track | undefined;
   private audioPlayer: HTMLAudioElement = new Audio();
@@ -41,6 +46,16 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
     this.load(trackId);
     this.play();
+  }
+
+  ngAfterViewInit() {
+    if (this.seekbarSlider === undefined) return;
+
+    const active = this.seekbarSlider._elementRef.nativeElement.querySelector('.mdc-slider__track--active_fill');
+    const inactive = this.seekbarSlider._elementRef.nativeElement.querySelector('.mdc-slider__track--inactive');
+
+    this.renderer2.setStyle(active, 'border-image', this.track?.gradient + ' 1');
+    this.renderer2.setStyle(inactive, 'background-color', 'white');
   }
 
   private load(trackId: number) {
