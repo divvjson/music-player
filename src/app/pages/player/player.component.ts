@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TrackService } from '../../services/track.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Track } from '../../interfaces/track.interface';
-import { MatSlider, MatSliderModule } from '@angular/material/slider';
+import { MatSlider, MatSliderDragEvent, MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'app-player',
@@ -26,10 +26,12 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private trackService = inject(TrackService);
   private renderer2 = inject(Renderer2);
 
-  @ViewChild(MatSlider) seekbarSlider: MatSlider | undefined;
-
+  @ViewChild(MatSlider)
+  public seekbarSlider: MatSlider | undefined;
   public track: Track | undefined;
-  private audioPlayer: HTMLAudioElement = new Audio();
+  public audio = new Audio();
+  public hasLoadedMetadata = signal(false);
+  public isPlaying = signal(false);
 
   ngOnInit() {
     const trackId = parseInt(this.route.snapshot.params['trackId']);
@@ -44,8 +46,15 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    this.load(trackId);
-    this.play();
+    this.track = this.trackService.tracks.find(track => track.id === trackId);
+
+    if (this.track === undefined) {
+      throw new Error(`Track not found`);
+    }
+
+    this.audio.src = this.track.url;
+    this.audio.load();
+    this.audio.addEventListener('loadedmetadata', () => this.hasLoadedMetadata.set(true));
   }
 
   ngAfterViewInit() {
@@ -58,25 +67,33 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.renderer2.setStyle(inactive, 'background-color', 'white');
   }
 
-  private load(trackId: number) {
-    this.track = this.trackService.tracks.find(track => track.id === trackId);
-
-    if (this.track === undefined) {
-      throw new Error(`Track not found`);
-    }
-
-    this.audioPlayer = new Audio(this.track.url);
+  public handleSeek(event: MatSliderDragEvent) {
+    this.audio.currentTime = event.value;
   }
 
-  private play() {
-    this.audioPlayer.play();
+  public previous() {
+
   }
 
-  private pause() {
-    this.audioPlayer.pause();
+  public replay10() {
+    this.audio.currentTime = this.audio.currentTime - 10;
+  }
+
+  public play() {
+    this.audio.play();
+    this.isPlaying.set(true);
+  }
+
+  public pause() {
+    this.audio.pause();
+    this.isPlaying.set(false);
+  }
+
+  public forward10() {
+    this.audio.currentTime = this.audio.currentTime + 10;
   }
 
   ngOnDestroy() {
-    this.pause();
+    this.audio.pause();
   }
 }
