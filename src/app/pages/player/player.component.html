@@ -18,6 +18,9 @@
   <span class="track-artist">{{ track?.artist }}</span>
 </div>
 <div class="seekbar">
+  <span class="seekbar-time__indicator">{{
+    audio.currentTime | mediaTime
+  }}</span>
   <mat-slider class="seekbar-slider" #seekbarSlider [max]="audio.duration">
     <input
       matSliderThumb
@@ -25,55 +28,30 @@
       (dragEnd)="handleSeek($event)"
     />
   </mat-slider>
+  <span class="seekbar-time__indicator">{{ audio.duration | mediaTime }}</span>
 </div>
 <div class="controls">
-  <button
-    class="controls-button"
-    mat-icon-button
-    [disabled]="!hasLoadedMetadata()"
-  >
+  @if (track !== undefined && hasLoadedMetadata()) {
+  <button class="controls-button" mat-icon-button [disabled]="!hasPrevious(track)" (click)="goto(track, 'previous')">
     <mat-icon class="controls-button-icon">skip_previous</mat-icon>
   </button>
-  <button
-    class="controls-button"
-    mat-icon-button
-    [disabled]="!hasLoadedMetadata()"
-    (click)="replay10()"
-  >
+  <button class="controls-button" mat-icon-button (click)="replay10()">
     <mat-icon class="controls-button-icon">replay_10</mat-icon>
   </button>
   @if (isPlaying()) {
-  <button
-    class="controls-button"
-    mat-icon-button
-    [disabled]="!hasLoadedMetadata()"
-    (click)="pause()"
-  >
+  <button class="controls-button" mat-icon-button (click)="pause()">
     <mat-icon class="controls-button-icon">pause</mat-icon>
   </button>
   } @else {
-  <button
-    class="controls-button"
-    mat-icon-button
-    [disabled]="!hasLoadedMetadata()"
-    (click)="play()"
-  >
+  <button class="controls-button" mat-icon-button (click)="play()">
     <mat-icon class="controls-button-icon">play_arrow</mat-icon>
   </button>
   }
-  <button
-    class="controls-button"
-    mat-icon-button
-    [disabled]="!hasLoadedMetadata()"
-    (click)="forward10()"
-  >
+  <button class="controls-button" mat-icon-button (click)="forward10()">
     <mat-icon class="controls-button-icon">forward_10</mat-icon>
   </button>
-  <button
-    class="controls-button"
-    mat-icon-button
-    [disabled]="!hasLoadedMetadata()"
-  >
+  <button class="controls-button" mat-icon-button [disabled]="!hasNext(track)" (click)="goto(track, 'next')">
     <mat-icon class="controls-button-icon">skip_next</mat-icon>
   </button>
+  }
 </div>

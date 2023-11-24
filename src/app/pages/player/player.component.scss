@@ -71,14 +71,24 @@
 
 .seekbar {
   display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.seekbar-time__indicator {
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .seekbar-slider {
   display: flex;
   flex-grow: 1;
   box-sizing: border-box;
-  margin-left: calc(32px + 16px);
-  margin-right: calc(32px + 16px);
+  margin-left: calc(24px + 4px);
+  margin-right: calc(24px + 4px);
 }
 
 .seekbar-slider {
@@ -96,6 +106,7 @@
 }
 
 .controls {
+  height: 64px;
   display: flex;
   justify-content: center;
   align-items: center;

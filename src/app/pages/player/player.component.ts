@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild, inject, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, Renderer2, ViewChild, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TrackService } from '../../services/track.service';
@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Track } from '../../interfaces/track.interface';
 import { MatSlider, MatSliderDragEvent, MatSliderModule } from '@angular/material/slider';
+import { MediaTimePipe } from '../../pipes/media-time.pipe';
 
 @Component({
   selector: 'app-player',
@@ -15,16 +16,19 @@ import { MatSlider, MatSliderDragEvent, MatSliderModule } from '@angular/materia
     MatButtonModule,
     MatIconModule,
     MatSliderModule,
+    MediaTimePipe,
     RouterModule,
   ],
   templateUrl: './player.component.html',
-  styleUrl: './player.component.scss'
+  styleUrl: './player.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private trackService = inject(TrackService);
   private renderer2 = inject(Renderer2);
+  private cdr = inject(ChangeDetectorRef);
 
   @ViewChild(MatSlider)
   public seekbarSlider: MatSlider | undefined;
@@ -55,6 +59,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.audio.src = this.track.url;
     this.audio.load();
     this.audio.addEventListener('loadedmetadata', () => this.hasLoadedMetadata.set(true));
+    this.audio.addEventListener('timeupdate', () => this.cdr.markForCheck());
   }
 
   ngAfterViewInit() {
@@ -71,8 +76,23 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.audio.currentTime = event.value;
   }
 
-  public previous() {
+  public hasPrevious(currentTrack: Track) {
+    const currentIndex = this.trackService.tracks.findIndex(t => t.id === currentTrack.id);
+    return currentIndex > 0;
+  }
 
+  public hasNext(currentTrack: Track) {
+    const currentIndex = this.trackService.tracks.findIndex(t => t.id === currentTrack.id);
+    return currentIndex < this.trackService.tracks.length - 1;
+  }
+
+  public goto(currentTrack: Track, direction: 'previous' | 'next') {
+    const currentIndex = this.trackService.tracks.findIndex(t => t.id === currentTrack.id);
+    const directionIndex = direction === 'previous' ? -1 : 1;
+    const track = this.trackService.tracks.at(currentIndex + directionIndex);
+    if (track === undefined) return;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.navigate(['player', track.id]);
   }
 
   public replay10() {
