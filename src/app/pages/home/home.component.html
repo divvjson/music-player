@@ -1,8 +1,5 @@
 <div class="bar">
   <span class="bar-title">Tracks</span>
-  <a class="bar-add" mat-icon-button>
-    <mat-icon>add</mat-icon>
-  </a>
 </div>
 @for (track of trackService.tracks; track track.title) {
 <a class="track" [routerLink]="'/player/' + track.id">
