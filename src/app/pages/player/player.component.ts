@@ -60,6 +60,13 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.audio.load();
     this.audio.addEventListener('loadedmetadata', () => this.hasLoadedMetadata.set(true));
     this.audio.addEventListener('timeupdate', () => this.cdr.markForCheck());
+    this.audio.addEventListener('ended', () => this.goto(this.track!, 'next', true));
+
+    const autoplay = this.route.snapshot.queryParams['autoplay'];
+
+    if (autoplay === 'true') {
+      this.play();
+    }
   }
 
   ngAfterViewInit() {
@@ -86,13 +93,13 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     return currentIndex < this.trackService.tracks.length - 1;
   }
 
-  public goto(currentTrack: Track, direction: 'previous' | 'next') {
+  public goto(currentTrack: Track, direction: 'previous' | 'next', autoplay: boolean) {
     const currentIndex = this.trackService.tracks.findIndex(t => t.id === currentTrack.id);
     const directionIndex = direction === 'previous' ? -1 : 1;
     const track = this.trackService.tracks.at(currentIndex + directionIndex);
     if (track === undefined) return;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.navigate(['player', track.id]);
+    this.router.navigate(['player', track.id], { queryParams: { autoplay: autoplay } });
   }
 
   public replay10() {
@@ -100,8 +107,9 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public play() {
-    this.audio.play();
-    this.isPlaying.set(true);
+    this.audio.play()
+      .then(() => this.isPlaying.set(true))
+      .catch((err) => console.error(err));
   }
 
   public pause() {

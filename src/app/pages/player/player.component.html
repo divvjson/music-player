@@ -39,7 +39,7 @@
       class="controls-button"
       mat-icon-button
       [disabled]="!hasPrevious(track)"
-      (click)="goto(track, 'previous')"
+      (click)="goto(track, 'previous', true)"
     >
       <mat-icon class="controls-button-icon">skip_previous</mat-icon>
     </button>
@@ -62,7 +62,7 @@
       class="controls-button"
       mat-icon-button
       [disabled]="!hasNext(track)"
-      (click)="goto(track, 'next')"
+      (click)="goto(track, 'next', true)"
     >
       <mat-icon class="controls-button-icon">skip_next</mat-icon>
     </button>
