@@ -1,29 +1,31 @@
 <div class="bar">
   <span class="bar-title">Tracks</span>
 </div>
-@for (track of trackService.tracks; track track.title) {
-<a class="track" [routerLink]="'/player/' + track.id">
-  <div class="track-cover" [style.background]="track.gradient"></div>
-  <div class="track-info">
-    <span class="track-info-name">{{ track.title }}</span>
-    <span class="track-info-artist">{{ track.artist }}</span>
-  </div>
-  <button
-    class="track-options-button"
-    mat-icon-button
-    [matMenuTriggerFor]="menu"
-    (click)="$event.preventDefault(); $event.stopPropagation()"
-  >
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu class="track-options" #menu="matMenu">
+<div class="track-list" cdkDropList (cdkDropListDropped)="drop($event)">
+  @for (track of trackService.tracks; track track.id) {
+  <a class="track" [routerLink]="'/player/' + track.id" cdkDrag>
+    <div class="track-cover" [style.background]="track.gradient"></div>
+    <div class="track-info">
+      <span class="track-info-name">{{ track.title }}</span>
+      <span class="track-info-artist">{{ track.artist }}</span>
+    </div>
     <button
-      class="track-options-item"
-      mat-menu-item
-      (click)="trackService.tracks.remove(track)"
+      class="track-options-button"
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      (click)="$event.preventDefault(); $event.stopPropagation()"
     >
-      Remove
+      <mat-icon>more_vert</mat-icon>
     </button>
-  </mat-menu>
-</a>
-} @empty { No tracks }
+    <mat-menu class="track-options" #menu="matMenu">
+      <button
+        class="track-options-item"
+        mat-menu-item
+        (click)="trackService.tracks.remove(track)"
+      >
+        Remove
+      </button>
+    </mat-menu>
+  </a>
+  } @empty { No tracks }
+</div>
