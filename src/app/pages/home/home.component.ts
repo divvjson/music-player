@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TrackService } from '../../services/track.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,8 +21,7 @@ import { Track } from '../../interfaces/track.interface';
     RouterModule,
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent {
   public trackService = inject(TrackService);
