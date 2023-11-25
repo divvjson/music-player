@@ -4,11 +4,11 @@
     <mat-icon>add</mat-icon>
   </a>
 </div>
-@for (track of trackService.tracks; track track.name) {
+@for (track of trackService.tracks; track track.title) {
 <a class="track" [routerLink]="'/player/' + track.id">
   <div class="track-cover" [style.background]="track.gradient"></div>
   <div class="track-info">
-    <span class="track-info-name">{{ track.name }}</span>
+    <span class="track-info-name">{{ track.title }}</span>
     <span class="track-info-artist">{{ track.artist }}</span>
   </div>
   <button

@@ -1,7 +1,7 @@
 export interface Track {
   id: number;
   artist: string;
-  name: string;
+  title: string;
   gradient: string;
   url: string;
 }
