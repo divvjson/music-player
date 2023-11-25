@@ -1,9 +1,13 @@
 <div class="bar">
   <span class="bar-title">Tracks</span>
 </div>
-<div class="track-list example-list">
-  @for (track of trackService.tracks; track track.id) {
-  <a class="track example-box" [routerLink]="'/player/' + track.id">
+<div class="track-list" cdkDropList (cdkDropListDropped)="drop($event)">
+  <a
+    class="track"
+    cdkDrag
+    *ngFor="let track of trackService.tracks"
+    [routerLink]="'/player/' + track.id"
+  >
     <div class="track-cover" [style.background]="track.gradient"></div>
     <div class="track-info">
       <span class="track-info-name">{{ track.title }}</span>
@@ -27,5 +31,4 @@
       </button>
     </mat-menu>
   </a>
-  } @empty { No tracks }
 </div>

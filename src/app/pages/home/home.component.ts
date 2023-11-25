@@ -5,11 +5,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Track } from '../../interfaces/track.interface';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
+    CdkDrag,
+    CdkDropList,
     CommonModule,
     MatButtonModule,
     MatIconModule,
@@ -22,4 +26,8 @@ import { RouterModule } from '@angular/router';
 })
 export class HomeComponent {
   public trackService = inject(TrackService);
+
+  drop(event: CdkDragDrop<Track[]>) {
+    moveItemInArray(this.trackService.tracks, event.previousIndex, event.currentIndex);
+  }
 }
