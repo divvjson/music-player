@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TrackService } from '../../services/track.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterModule } from '@angular/router';
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Track } from '../../interfaces/track.interface';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ import { Track } from '../../interfaces/track.interface';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatSlideToggleModule,
     RouterModule,
   ],
   templateUrl: './home.component.html',
@@ -27,6 +29,11 @@ import { Track } from '../../interfaces/track.interface';
 export class HomeComponent {
   private router = inject(Router);
   public trackService = inject(TrackService);
+  public isDragMode = signal(false);
+
+  public handleDragModeChanged(event: MatSlideToggleChange) {
+    this.isDragMode.set(event.checked);
+  }
 
   public drop(event: CdkDragDrop<Track[]>) {
     moveItemInArray(this.trackService.tracks, event.previousIndex, event.currentIndex);
