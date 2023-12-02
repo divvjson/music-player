@@ -4,7 +4,7 @@ import { TrackService } from '../../services/track.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Track } from '../../interfaces/track.interface';
 
@@ -25,9 +25,14 @@ import { Track } from '../../interfaces/track.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
+  private router = inject(Router);
   public trackService = inject(TrackService);
 
-  drop(event: CdkDragDrop<Track[]>) {
+  public drop(event: CdkDragDrop<Track[]>) {
     moveItemInArray(this.trackService.tracks, event.previousIndex, event.currentIndex);
+  }
+
+  public navigate(track: Track) {
+    this.router.navigate(['player' + '/' + track.id]);
   }
 }
