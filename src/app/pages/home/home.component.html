@@ -3,7 +3,7 @@
   <mat-slide-toggle [checked]="isDragMode()" (change)="handleDragModeChanged($event)">DRAG MODE</mat-slide-toggle>
 </div>
 <div class="track-list" [class.drag-mode]="isDragMode()" cdkDropList (cdkDropListDropped)="drop($event)">
-  <div class="track" [style.cursor]="isDragMode() ? 'move' : 'pointer'" cdkDrag [cdkDragDisabled]="isDragMode() === false" *ngFor="let track of trackService.tracks; index as i" mat-button (click)="navigate(track)">
+  <div class="track" [class.mat-elevation-z4]="isDragMode()" [style.cursor]="isDragMode() ? 'move' : 'pointer'" cdkDrag [cdkDragDisabled]="!isDragMode()" *ngFor="let track of trackService.tracks; index as i" mat-button (click)="navigate(track)">
     <div class="track-rank">{{ i + 1 }}</div>
     <div class="track-cover" [style.background]="track.gradient"></div>
     <div class="track-info">
