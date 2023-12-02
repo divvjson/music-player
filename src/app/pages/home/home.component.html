@@ -1,8 +1,12 @@
 <div class="bar">
   <span class="bar-title">Tracks</span>
+  <button mat-icon-button>
+    <mat-icon>list_alt</mat-icon>
+  </button>
 </div>
 <div class="track-list" cdkDropList (cdkDropListDropped)="drop($event)">
-  <div cdkDrag class="track" *ngFor="let track of trackService.tracks" mat-button (click)="navigate(track)">
+  <div cdkDrag class="track" *ngFor="let track of trackService.tracks; index as i" mat-button (click)="navigate(track)">
+    <div class="track-rank">{{ i + 1 }}</div>
     <div class="track-cover" [style.background]="track.gradient"></div>
     <div class="track-info">
       <span class="track-info-name">{{ track.title }}</span>

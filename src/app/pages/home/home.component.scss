@@ -16,6 +16,7 @@
   box-sizing: border-box;
   padding-left: 16px;
   padding-right: 16px;
+  color: white;
 }
 
 .bar-title {
@@ -40,9 +41,15 @@
   background: linear-gradient(to right, #4B3F87, #3E3665);
   box-sizing: border-box;
   padding: 16px;
+  color: white;
+}
+
+.track-rank {
+  font-weight: 500;
 }
 
 .track-cover {
+  margin-left: 16px;
   height: 48px;
   width: 48px;
   border-radius: 8px;
