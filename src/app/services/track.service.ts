@@ -61,6 +61,34 @@ export class TrackService {
       gradient: `linear-gradient(to bottom right, #5E24FC, #B526FC)`,
       url: 'assets/tracks/Covert Affair.mp3',
     },
+    {
+      id: 9,
+      artist: 'Kevin MacLeod',
+      title: 'Dances and Dames',
+      gradient: `linear-gradient(to bottom right, #15C2FF, #551DFF)`,
+      url: 'assets/tracks/Dances and Dames.mp3',
+    },
+    {
+      id: 10,
+      artist: 'Kevin MacLeod',
+      title: 'Dispersion Relation',
+      gradient: `linear-gradient(to bottom right, #12FF6F, #16FFC9)`,
+      url: 'assets/tracks/Dispersion Relation.mp3',
+    },
+    {
+      id: 11,
+      artist: 'Kevin MacLeod',
+      title: 'Fast Talkin',
+      gradient: `linear-gradient(to bottom right, #A91BFF, #FF1E76)`,
+      url: 'assets/tracks/Fast Talkin.mp3',
+    },
+    {
+      id: 12,
+      artist: 'Kevin MacLeod',
+      title: 'Faster Does It',
+      gradient: `linear-gradient(to bottom right, #FF2547, #FF5325)`,
+      url: 'assets/tracks/Faster Does It.mp3',
+    },
   ];
 
   public tracks = signal<Track[]>([]);
