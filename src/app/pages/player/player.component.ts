@@ -92,7 +92,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public hasNext(currentTrack: Track) {
     const currentIndex = this.trackService.tracks().findIndex(t => t.id === currentTrack.id);
-    return currentIndex < this.trackService.tracks.length - 1;
+    return currentIndex < this.trackService.tracks().length - 1;
   }
 
   public goto(currentTrack: Track, direction: 'previous' | 'next', autoplay: boolean) {
