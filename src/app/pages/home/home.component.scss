@@ -9,20 +9,16 @@
 }
 
 .bar {
-  height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
-  padding-left: 16px;
-  padding-right: 16px;
   color: white;
 }
 
 .bar-title {
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
+  --mdc-filled-button-container-color: #4B3F87;
+  --mdc-filled-button-label-text-color: white;
 }
 
 :host ::ng-deep .mat-mdc-slide-toggle > .mdc-form-field > .mdc-label {

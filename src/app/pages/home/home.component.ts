@@ -35,10 +35,6 @@ export class HomeComponent {
     this.isDragMode.set(event.checked);
   }
 
-  public drop(event: CdkDragDrop<Track[]>) {
-    moveItemInArray(this.trackService.tracks, event.previousIndex, event.currentIndex);
-  }
-
   public navigate(track: Track) {
     this.router.navigate(['player' + '/' + track.id]);
   }

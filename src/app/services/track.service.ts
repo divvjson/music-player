@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Track } from '../interfaces/track.interface';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Injectable({ providedIn: 'root' })
 export class TrackService {
-
-  public tracks: Array<Track> = [
+  private _tracks: Array<Track> = [
     {
       id: 1,
       artist: 'Kevin MacLeod',
@@ -55,11 +55,44 @@ export class TrackService {
       url: 'assets/tracks/Cool Vibes.mp3',
     },
     {
-      id: 7,
+      id: 8,
       artist: 'Kevin MacLeod',
       title: 'Covert Affair',
       gradient: `linear-gradient(to bottom right, #5E24FC, #B526FC)`,
       url: 'assets/tracks/Covert Affair.mp3',
     },
   ];
+
+  public tracks = signal<Track[]>([]);
+
+  constructor() {
+    const tracksAsString = localStorage.getItem('tracks');
+    if (tracksAsString === null) {
+      localStorage.setItem('tracks', JSON.stringify(this._tracks));
+      this.tracks.set(this._tracks);
+      return;
+    }
+
+    const tracks = JSON.parse(tracksAsString) as Track[];
+    this.tracks.set(tracks);
+  }
+
+  public drop(event: CdkDragDrop<Track[]>) {
+    localStorage.removeItem('tracks');
+    moveItemInArray(this.tracks(), event.previousIndex, event.currentIndex);
+    localStorage.setItem('tracks', JSON.stringify(this.tracks()));
+  }
+
+  public remove(track: Track) {
+    localStorage.removeItem('tracks');
+    const tracksFiltered = this.tracks().filter(t => t.id !== track.id);
+    localStorage.setItem('tracks', JSON.stringify(tracksFiltered));
+    this.tracks.set(tracksFiltered);
+  }
+
+  public reset() {
+    localStorage.removeItem('tracks');
+    localStorage.setItem('tracks', JSON.stringify(this._tracks));
+    this.tracks.set(this._tracks);
+  }
 }

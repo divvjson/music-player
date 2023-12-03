@@ -45,12 +45,12 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    if (this.trackService.tracks.some(track => track.id === trackId) === false) {
+    if (this.trackService.tracks().some(track => track.id === trackId) === false) {
       this.router.navigate(['']);
       return;
     }
 
-    this.track = this.trackService.tracks.find(track => track.id === trackId);
+    this.track = this.trackService.tracks().find(track => track.id === trackId);
 
     if (this.track === undefined) {
       throw new Error(`Track not found`);
@@ -84,19 +84,19 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public hasPrevious(currentTrack: Track) {
-    const currentIndex = this.trackService.tracks.findIndex(t => t.id === currentTrack.id);
+    const currentIndex = this.trackService.tracks().findIndex(t => t.id === currentTrack.id);
     return currentIndex > 0;
   }
 
   public hasNext(currentTrack: Track) {
-    const currentIndex = this.trackService.tracks.findIndex(t => t.id === currentTrack.id);
+    const currentIndex = this.trackService.tracks().findIndex(t => t.id === currentTrack.id);
     return currentIndex < this.trackService.tracks.length - 1;
   }
 
   public goto(currentTrack: Track, direction: 'previous' | 'next', autoplay: boolean) {
-    const currentIndex = this.trackService.tracks.findIndex(t => t.id === currentTrack.id);
+    const currentIndex = this.trackService.tracks().findIndex(t => t.id === currentTrack.id);
     const directionIndex = direction === 'previous' ? -1 : 1;
-    const track = this.trackService.tracks.at(currentIndex + directionIndex);
+    const track = this.trackService.tracks().at(currentIndex + directionIndex);
     if (track === undefined) return;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.navigate(['player', track.id], { queryParams: { autoplay: autoplay } });
