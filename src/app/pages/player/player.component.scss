@@ -134,6 +134,10 @@
   font-size: 32px;
 }
 
+.controls-loading {
+  --mdc-circular-progress-active-indicator-color: white;
+}
+
 // XSmall
 @media only screen and (min-width: 0px) {}
 

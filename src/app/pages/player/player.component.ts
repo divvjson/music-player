@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Track } from '../../interfaces/track.interface';
 import { MatSlider, MatSliderDragEvent, MatSliderModule } from '@angular/material/slider';
 import { MediaTimePipe } from '../../pipes/media-time.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-player',
@@ -15,6 +16,7 @@ import { MediaTimePipe } from '../../pipes/media-time.pipe';
     CommonModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     MatSliderModule,
     MediaTimePipe,
     RouterModule,

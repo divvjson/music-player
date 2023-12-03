@@ -45,6 +45,8 @@
     <button class="controls-button" mat-icon-button [disabled]="!hasNext(track)" (click)="goto(track, 'next', true)">
       <mat-icon class="controls-button-icon">skip_next</mat-icon>
     </button>
+    } @else {
+      <mat-spinner class="controls-loading" diameter="32" />
     }
   </div>
 </div>
