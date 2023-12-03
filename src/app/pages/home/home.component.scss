@@ -52,13 +52,14 @@
 }
 
 .track-rank {
+  min-width: 17px;
   font-weight: 500;
 }
 
 .track-cover {
   margin-left: 16px;
   height: 48px;
-  width: 48px;
+  min-width: 48px;
   border-radius: 8px;
 }
 
