@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterModule } from '@angular/router';
-import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { Track } from '../../interfaces/track.interface';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 
